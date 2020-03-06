@@ -9,27 +9,22 @@ namespace SnowballerConsole
         public string Name { get; set; }
         public decimal Total { get; set; }
         public decimal MonthlyPayment { get; set; }
-
-        private DateTime _monthsPayOff;
-
-        public DateTime MonthsPayOff
-        {
-            get { return _monthsPayOff; }            
-        }
+        
+        public DateTime MonthsPayOff { get; private set; }
         
         public Bill(string name, decimal total, decimal monthlyPayment)
         {
             Name = name;
             Total = total;
             MonthlyPayment = monthlyPayment;
-            _monthsPayOff = DateTime.Now;
+            MonthsPayOff = DateTime.Now;
         }
 
         public DateTime GetPayOff(decimal total, decimal monthlyPayment)
         {
             var months = Convert.ToInt32(total / monthlyPayment);
-            _monthsPayOff = _monthsPayOff.AddMonths(months);
-            return _monthsPayOff;
+            MonthsPayOff = MonthsPayOff.AddMonths(months);
+            return MonthsPayOff;
         }
     }
 }
